@@ -152,7 +152,7 @@
       quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -0.1;
       quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -0.1;
 
-      quadrado1.dano += 1;
+      quadrado1.dano += 1; 
       console.log(quadrado1.dano);
     }
 
