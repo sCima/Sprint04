@@ -24,11 +24,11 @@
   quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados
   
   //robo 1
-  const quadrado1 = new quadrado(900, 200, 50, 70, "grey", 5); // posX, posY, width, height, color, velocidade
+  const quadrado1 = new quadrado(900, 200, 50, 70, "grey", 5, 0); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado1); // adiciona o quadrado1 ao array quadrados
 
   //robo 2
-  const quadrado4 = new quadrado(50, 200, 50, 70, "#dc143c", 5); // posX, posY, width, height, color, velocidade
+  const quadrado4 = new quadrado(50, 200, 50, 70, "#dc143c", 5, 0); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado4); // adiciona o quadrado4 ao array quadrados
   
 
@@ -104,6 +104,13 @@
     }
   });
 
+  function colisao(a, b) {
+    return a.posX < b.posX + b.width &&
+            a.posX + a.width > b.posX &&
+            a.posY < b.posY + b.height &&
+            a.posY + a.height > b.posY;
+  }
+
   function moverQuadrados() {
     if (moveLeft && !moveRight) {
       quadrado1.posX -= quadrado1.velocidade;
@@ -136,6 +143,19 @@
 
     quadrado4.posX = Math.max(0, Math.min(cnv.width - quadrado4.width, quadrado4.posX));
     quadrado4.posY = Math.max(0, Math.min(cnv.height - quadrado4.height, quadrado4.posY));
+
+    if (colisao(quadrado1, quadrado4)) {
+      console.log('Colisão entre os quadrados 1 e 4');
+      quadrado1.posX += (quadrado4.posX - quadrado1.posX) * -0.1;
+      quadrado1.posY += (quadrado4.posY - quadrado1.posY) * -0.1;
+      
+      quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -0.1;
+      quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -0.1;
+
+      quadrado1.dano += 1;
+      console.log(quadrado1.dano);
+    }
+
   }
 
 
