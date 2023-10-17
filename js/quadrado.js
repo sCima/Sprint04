@@ -7,5 +7,4 @@ const quadrado = function (posX, posY, width, height, color, velocidade, dano, i
     this.color = color;
     this.velocidade = velocidade;
     this.dano = dano;
-    this.imagem = imagem;
 }

@@ -187,12 +187,36 @@
     if (colisoes === 5) {
       colisoes++;
       if (quadrado1.dano > quadrado4.dano) {
-        alert("Vencedor: Demirval")
+        alert("Vencedor: Demirval");
       }
       else {
-        alert("Vencedor: Darth Vader")
+        alert("Vencedor: Darth Vader");
       }
+      const jogarNovamente = document.querySelector('.jogarNovamente');
+      jogarNovamente.classList.add('opacity-100');
+      jogarNovamente.addEventListener('click', () => {
+        quadrado1.dano = 100;
+        quadrado4.dano = 100;
+        colisoes = 0;
+        moveDown = false;
+        moveUp = false;
+        moveLeft = false;
+        moveRight = false;
+        moveDown2 = false;
+        moveUp2 = false;
+        moveLeft2 = false;
+        moveRight2 = false;
+        
+        quadrado1.posX = 900;
+        quadrado1.posY = 200;
+        quadrado4.posX = 50;
+        quadrado4.posY = 200;
+
+      })
+  
+
     }
+
   }
 
   //solicitar uma animação ao browser e chamar a função
