@@ -1,5 +1,5 @@
 // MONTA OS QUADRADOS(ROBÔS E OBSTÁCULOS)
-const quadrado = function (posX, posY, width, height, color, velocidade, dano) {
+const quadrado = function (posX, posY, width, height, color, velocidade, dano, imagem) {
     this.posX = posX;
     this.posY = posY;
     this.width = width;
@@ -7,4 +7,5 @@ const quadrado = function (posX, posY, width, height, color, velocidade, dano) {
     this.color = color;
     this.velocidade = velocidade;
     this.dano = dano;
+    this.imagem = imagem;
 }

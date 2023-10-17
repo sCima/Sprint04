@@ -13,25 +13,20 @@
   let moveRight2 = false;
   let moveDown2 = false;
 
+  let colisoes = 0;
+  let vencedor1 = false;
+  let vencedor2 = false;
+  
   // arrays
   const quadrados = []; //armazena os quadrados
 
-  // quadrados
-  const quadrado2 = new quadrado(490, 0, 10, 500, "#000", 0); // posX, posY, width, height, color, velocidade
-  quadrados.push(quadrado2); // adiciona o quadrado2 ao array quadrados
-
-  const quadrado3 = new quadrado(470, 220, 50, 50, "#000", 0); // posX, posY, width, height, color, velocidade
-  quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados
-  
   //robo 1
-  const quadrado1 = new quadrado(900, 200, 50, 70, "grey", 5, 0); // posX, posY, width, height, color, velocidade
+  const quadrado1 = new quadrado(900, 200, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado1); // adiciona o quadrado1 ao array quadrados
 
   //robo 2
-  const quadrado4 = new quadrado(50, 200, 50, 70, "#dc143c", 5, 0); // posX, posY, width, height, color, velocidade
+  const quadrado4 = new quadrado(50, 200, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado4); // adiciona o quadrado4 ao array quadrados
-  
-
 
   // pressionar as teclas robo1
   window.addEventListener('keydown', function (e) {
@@ -106,9 +101,9 @@
 
   function colisao(a, b) {
     return a.posX < b.posX + b.width &&
-            a.posX + a.width > b.posX &&
-            a.posY < b.posY + b.height &&
-            a.posY + a.height > b.posY;
+      a.posX + a.width > b.posX &&
+      a.posY < b.posY + b.height &&
+      a.posY + a.height > b.posY;
   }
 
   function moverQuadrados() {
@@ -137,7 +132,8 @@
     if (moveDown2 && !moveUp2) {
       quadrado4.posY += quadrado4.velocidade;
     }
-    //fiixar na tela - NÃO SAI DO CANVAS - Precisa pensar em como fazer isso com o obstáculo
+
+    //fixar na tela - NÃO SAI DO CANVAS - Precisa pensar em como fazer isso com o obstáculo
     quadrado1.posX = Math.max(0, Math.min(cnv.width - quadrado1.width, quadrado1.posX));
     quadrado1.posY = Math.max(0, Math.min(cnv.height - quadrado1.height, quadrado1.posY));
 
@@ -145,19 +141,38 @@
     quadrado4.posY = Math.max(0, Math.min(cnv.height - quadrado4.height, quadrado4.posY));
 
     if (colisao(quadrado1, quadrado4)) {
-      console.log('Colisão entre os quadrados 1 e 4');
-      quadrado1.posX += (quadrado4.posX - quadrado1.posX) * -0.1;
-      quadrado1.posY += (quadrado4.posY - quadrado1.posY) * -0.1;
-      
-      quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -0.1;
-      quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -0.1;
+      quadrado1.posX += (quadrado4.posX - quadrado1.posX) * -1;
+      quadrado1.posY += (quadrado4.posY - quadrado1.posY) * -1;
 
-      quadrado1.dano += 1; 
-      console.log(quadrado1.dano);
+      quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -1;
+      quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -1;
+
+      const robo1 = document.querySelector('.hpRobo1');
+      if (robo1.textContent >= "0") {
+        quadrado1.dano -= Math.round(Math.random() * 20);
+        robo1.textContent = quadrado1.dano;
+      }
+      if (robo1.textContent <= "0") {
+        quadrado1.dano = 0;
+        robo1.textContent = 0;
+
+      }
+
+      const robo2 = document.querySelector('.hpRobo2');
+      if (robo2.textContent >= "0") {
+        quadrado4.dano -= Math.round(Math.random() * 20);
+        robo2.textContent = quadrado4.dano;
+      }
+      if (robo2.textContent <= "0") {
+        quadrado4.dano = 0;
+        robo2.textContent = 0;
+
+      }
+
+      colisoes++;
+
     }
-
   }
-
 
   function exibirQuadrados() {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
@@ -167,12 +182,50 @@
       ctx.fillRect(spr.posX, spr.posY, spr.width, spr.height);
     }
   }
+
+  function verificaVencendor() {
+    if (colisoes === 5) {
+      colisoes++;
+      if (quadrado1.dano > quadrado4.dano) {
+        alert("Vencedor: Demirval")
+      }
+      else {
+        alert("Vencedor: Darth Vader")
+      }
+    }
+  }
+
   //solicitar uma animação ao browser e chamar a função
   //que é a propria função atualizarTela
   function atualizarTela() {
+    verificaVencendor();
     window.requestAnimationFrame(atualizarTela, cnv);
-    moverQuadrados();
-    exibirQuadrados();
+    if (colisoes <= 5) {
+      moverQuadrados();
+      const infoRobo1 = document.querySelector('#infoRobo1');
+      const infoRobo2 = document.querySelector('#infoRobo2');
+      if (quadrado1.dano <= 50) {
+        infoRobo1.classList.remove('bg-primary');
+        infoRobo1.classList.add('bg-danger');
+      }
+
+      if (quadrado4.dano <= 50) {
+        infoRobo2.classList.remove('bg-primary');
+        infoRobo2.classList.add('bg-danger');
+      }
+
+      if (quadrado1.dano === 0) {
+        infoRobo1.classList.remove('bg-danger');
+        infoRobo1.classList.add('bg-dark');
+      }
+
+      if (quadrado4.dano === 0) {
+        infoRobo2.classList.remove('bg-danger');
+        infoRobo2.classList.add('bg-dark');
+      }
+      exibirQuadrados();
+    }
+   
   }
   atualizarTela();
 

@@ -1,0 +1,11 @@
+.img-fiap {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    top: 35%;
+    opacity: .5;
+}
+
+.canvas{
+    border: 1px solid #000;
+}
