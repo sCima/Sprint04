@@ -1,6 +1,19 @@
 (function () {
   const cnv = document.querySelector('#canvas');
   const ctx = cnv.getContext('2d');
+  
+  function desenhaImagem() {
+    window.onload = function() {
+      let image = new Image();
+      image.src = "../images/pngfind.com-darth-vader-helmet-png-1283805.png";
+  
+      image.onload = function() {
+          ctx.drawImage(image, 0, 0, cnv.width, cnv.height);
+      };
+  }
+};
+
+  
 
   //movimentos
   let moveLeft = false;
@@ -34,14 +47,15 @@
   quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados
 
   //robo 1
-  const quadrado1 = new quadrado(50, 210, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
+  const quadrado1 = new quadrado(900, 210, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado1); // adiciona o quadrado1 ao array quadrados
   
-  /*let quadradoImg1 = {
-    src: "../images/pngfind.com-darth-vader-helmet-png-1283805.png",
+  /*const quadradoImg1 = new image (
+    src = "../images/pngfind.com-darth-vader-helmet-png-1283805.png",
     alt: "Imagem do Darth Vader",
     width: "70",
     height: "70"
+  )
 };
 
 
@@ -55,7 +69,7 @@
   container.appendChild(elementoImg);*/
 
   //robo 2
-  const quadrado4 = new quadrado(900, 210, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
+  const quadrado4 = new quadrado(50, 210, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado4); // adiciona o quadrado4 ao array quadrados
 
   // pressionar as teclas robo1
@@ -137,30 +151,30 @@
   }
 
   function moverQuadrados() {
-    if (moveLeft2 && !moveRight2) {
-      quadrado1.posX -= quadrado1.velocidade;
+    if (moveLeft2) {
+      quadrado4.posX -= quadrado1.velocidade;
     }
-    if (moveRight2 && !moveLeft2) {
-      quadrado1.posX += quadrado1.velocidade;
+    if (moveRight2) {
+      quadrado4.posX += quadrado1.velocidade;
     }
-    if (moveUp2 && !moveDown2) {
-      quadrado1.posY -= quadrado1.velocidade;
+    if (moveUp2) {
+      quadrado4.posY -= quadrado1.velocidade;
     }
-    if (moveDown2 && !moveUp2) {
-      quadrado1.posY += quadrado1.velocidade;
+    if (moveDown2) {
+      quadrado4.posY += quadrado1.velocidade;
     }
 
-    if (moveLeft && !moveRight) {
-      quadrado4.posX -= quadrado4.velocidade;
+    if (moveLeft) {
+      quadrado1.posX -= quadrado4.velocidade;
     }
-    if (moveRight && !moveLeft) {
-      quadrado4.posX += quadrado4.velocidade;
+    if (moveRight) {
+      quadrado1.posX += quadrado4.velocidade;
     }
-    if (moveUp && !moveDown) {
-      quadrado4.posY -= quadrado4.velocidade;
+    if (moveUp) {
+      quadrado1.posY -= quadrado4.velocidade;
     }
-    if (moveDown && !moveUp) {
-      quadrado4.posY += quadrado4.velocidade;
+    if (moveDown) {
+      quadrado1.posY += quadrado4.velocidade;
     }
 
     //fixar na tela - NÃO SAI DO CANVAS - Precisa pensar em como fazer isso com o obstáculo
@@ -171,11 +185,11 @@
     quadrado4.posY = Math.max(0, Math.min(cnv.height - quadrado4.height, quadrado4.posY));
 
     if (colisao(quadrado1, quadrado4)) {
-      quadrado1.posX += (quadrado4.posX - quadrado1.posX) * -1;
-      quadrado1.posY += (quadrado4.posY - quadrado1.posY) * -1;
+      quadrado1.posX += (quadrado4.posX - quadrado1.posX) * -1.5;
+      quadrado1.posY += (quadrado4.posY - quadrado1.posY) * -1.5;
 
-      quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -1;
-      quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -1;
+      quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -1.5;
+      quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -1.5;
 
       
       // Se houver mais de "0" de vida, calcula o dano
@@ -241,9 +255,9 @@
         moveRight2 = false;
 
         //Reseta a posição dos robos
-        quadrado1.posX = 50;
+        quadrado1.posX = 900;
         quadrado1.posY = 200;
-        quadrado4.posX = 900;
+        quadrado4.posX = 50;
         quadrado4.posY = 200;
 
         //Reseta a vida dos robos
@@ -270,6 +284,7 @@
   //que é a propria função atualizarTela
   function atualizarTela() {
     verificaVencendor();
+    desenhaImagem();
     window.requestAnimationFrame(atualizarTela, cnv);
     if (colisoes <= 5) {
       moverQuadrados();
