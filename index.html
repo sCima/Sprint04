@@ -18,22 +18,24 @@
 </head>
 
 <body>
-  <main class="container mx-auto d-flex justify-content-center align-content-center my-5 flex-column">
-    <div class="container d-flex justify-content-space-between align-items-center mx-auto">
-      <div class="me-auto my-3">
-        <h1 class="border p-2 rounded-3 bg-primary text-light" id="infoRobo1">Demirval - HP: <span
-            class="hpRobo1">100</span></h1>
+  <main>
+    <div class="container mx-auto d-flex justify-content-center align-content-center my-5 flex-column">
+      <div class="container d-flex justify-content-space-between align-items-center mx-auto">
+        <div class="me-auto my-3">
+          <h1 class="border p-2 rounded-3 bg-light" id="infoRobo1">Demirval - HP: <span
+              class="hpRobo1">100</span></h1>
+        </div>
+        <div class="my-3">
+          <h1 class="border p-2 rounded-3 bg-light" id="infoRobo2">Darth Vader - HP: <span
+              class="hpRobo2">100</span></h1>
+        </div>
       </div>
-      <div class="my-3">
-        <h1 class="border p-2 rounded-3 bg-primary text-light" id="infoRobo2">Darth Vader - HP: <span
-            class="hpRobo2">100</span></h1>
+      <canvas id="canvas" width="1000" height="500" class="canvas"></canvas>
+      <div class="d-none">
+        <img id="source" src="./images/pngfind.com-darth-vader-helmet-png-1283805.png" width="70" height="70" />
       </div>
+      <button class="jogarNovamente btn btn-light mx-auto my-5 opacity-0">Jogar novamente!</button>
     </div>
-    <canvas id="canvas" width="1000" height="500" class="canvas"></canvas>
-    <div class="d-none">
-      <img id="source" src="./images/pngfind.com-darth-vader-helmet-png-1283805.png" width="70" height="70" />
-    </div>
-    <button class="jogarNovamente btn btn-primary mx-auto my-5 opacity-0">Jogar novamente!</button>
   </main>
   <script type="text/javascript" src="./js/quadrado.js"></script>
   <script type="text/javascript" src="./js/funcoes.js"></script>

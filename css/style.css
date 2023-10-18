@@ -2,22 +2,21 @@
     font-family: 'Pixelify Sans', sans-serif;
 }
 
-.img-fiap {
+.img-arena {
     position: absolute;
-    width: 50%;
-    left: 25%;
-    top: 35%;
-    opacity: .5;
+    width: 1000px;
+    height: 500px;
 }
 
 .canvas{
-    border: 1px solid #000;
-    background-color: antiquewhite;
+    border: 2px solid #000;
+    background-image: url(../images/arena.png);
+    background-size: cover;
 }
 
-body {
+main {
     overflow: hidden;
     height: 100vh;
     width: 100vw;
-    background-color: #FD0FD5;
+    background-color: #000;
 }

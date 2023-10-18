@@ -2,16 +2,7 @@
   const cnv = document.querySelector('#canvas');
   const ctx = cnv.getContext('2d');
   
-  function desenhaImagem() {
-    window.onload = function() {
-      let image = new Image();
-      image.src = "../images/pngfind.com-darth-vader-helmet-png-1283805.png";
-  
-      image.onload = function() {
-          ctx.drawImage(image, 0, 0, cnv.width, cnv.height);
-      };
-  }
-};
+
 
   
 
@@ -40,33 +31,15 @@
   const quadrados = []; //armazena os quadrados
 
   // quadrados
-  const quadrado2 = new quadrado(490, 0, 10, 500, "#000", 0); // posX, posY, width, height, color, velocidade
+  /*const quadrado2 = new quadrado(490, 0, 10, 500, "#000", 0); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado2); // adiciona o quadrado2 ao array quadrados
 
   const quadrado3 = new quadrado(470, 220, 50, 50, "#000", 0); // posX, posY, width, height, color, velocidade
-  quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados
+  quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados*/
 
   //robo 1
   const quadrado1 = new quadrado(900, 210, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado1); // adiciona o quadrado1 ao array quadrados
-  
-  /*const quadradoImg1 = new image (
-    src = "../images/pngfind.com-darth-vader-helmet-png-1283805.png",
-    alt: "Imagem do Darth Vader",
-    width: "70",
-    height: "70"
-  )
-};
-
-
-  let elementoImg = document.createElement("img");
-  elementoImg.src = quadradoImg1.src;
-  elementoImg.width = quadradoImg1.width;
-  elementoImg.height = quadradoImg1.height;
-  
-  
-  let container = document.querySelector('.container')
-  container.appendChild(elementoImg);*/
 
   //robo 2
   const quadrado4 = new quadrado(50, 210, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
@@ -268,10 +241,10 @@
 
         //Resetar o background azul
         infoRobo1.classList.remove('bg-danger');
-        infoRobo1.classList.add('bg-primary');
+        infoRobo1.classList.add('bg-light');
 
         infoRobo2.classList.remove('bg-danger');
-        infoRobo2.classList.add('bg-primary');
+        infoRobo2.classList.add('bg-light');
 
         //Fazer o botão sumir
         jogarNovamente.classList.remove('opacity-100');
@@ -284,18 +257,17 @@
   //que é a propria função atualizarTela
   function atualizarTela() {
     verificaVencendor();
-    desenhaImagem();
     window.requestAnimationFrame(atualizarTela, cnv);
     if (colisoes <= 5) {
       moverQuadrados();
 
       if (quadrado1.dano <= 50) {
-        infoRobo1.classList.remove('bg-primary');
+        infoRobo1.classList.remove('bg-light');
         infoRobo1.classList.add('bg-danger');
       }
 
       if (quadrado4.dano <= 50) {
-        infoRobo2.classList.remove('bg-primary');
+        infoRobo2.classList.remove('bg-light');
         infoRobo2.classList.add('bg-danger');
       }
 
