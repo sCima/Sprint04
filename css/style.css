@@ -20,3 +20,7 @@ main {
     width: 100vw;
     background-color: #000;
 }
+
+.text-red{
+    color: #900;
+}

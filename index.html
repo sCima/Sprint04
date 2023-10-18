@@ -20,21 +20,27 @@
 <body>
   <main>
     <div class="container mx-auto d-flex justify-content-center align-content-center my-5 flex-column">
-      <div class="container d-flex justify-content-space-between align-items-center mx-auto">
-        <div class="me-auto my-3">
-          <h1 class="border p-2 rounded-3 bg-light" id="infoRobo1">Demirval - HP: <span
-              class="hpRobo1">100</span></h1>
+      <div class="col container d-flex justify-content-space-between align-items-center mx-auto">
+        <div class="me-auto col-md-4 my-3">
+          <h1 class="text-light text-center" id="infoRobo1">Demirval</h1>
+             <h2 class="text-success text-center">HP<span
+              class="hpRobo1">100</span></h2>
         </div>
-        <div class="my-3">
-          <h1 class="border p-2 rounded-3 bg-light" id="infoRobo2">Darth Vader - HP: <span
-              class="hpRobo2">100</span></h1>
+        <div class="my-3 col-md-4">
+          <h1 class="text-white-50 text-center display-4">X</h1>
+        </div>
+        <div class="my-3 col-md-4">
+          <h1 class="text-light text-center" id="infoRobo2">Doomerval</h1>
+          <h2 class="text-success text-center">HP<span
+            class="hpRobo2">100</span></h2>
         </div>
       </div>
       <canvas id="canvas" width="1000" height="500" class="canvas"></canvas>
       <div class="d-none">
         <img id="source" src="./images/pngfind.com-darth-vader-helmet-png-1283805.png" width="70" height="70" />
       </div>
-      <button class="jogarNovamente btn btn-light mx-auto my-5 opacity-0">Jogar novamente!</button>
+      <h1 id="vitoria" class="text-light text-center display-1 opacity-0"></h1>
+      <button class="jogarNovamente btn btn-light mx-auto my-1 opacity-0">Jogar novamente!</button>
     </div>
   </main>
   <script type="text/javascript" src="./js/quadrado.js"></script>

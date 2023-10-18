@@ -27,6 +27,9 @@
   const infoRobo1 = document.querySelector('#infoRobo1');
   const infoRobo2 = document.querySelector('#infoRobo2');
 
+  // mensagem de vitoria
+  const textoVitoria = document.querySelector('#vitoria')
+
   // arrays
   const quadrados = []; //armazena os quadrados
 
@@ -206,14 +209,22 @@
     if (colisoes === 5) {
       colisoes++;
       if (quadrado1.dano > quadrado4.dano) {
-        alert("Vencedor: Demirval");
+        textoVitoria.textContent = ('DEMIRVAL WINS')
+        textoVitoria.classList.remove('opacity-0');
+        textoVitoria.classList.add('opacity-100');
+
       } else if (quadrado1.dano === quadrado4.dano) {
-        alert("Empate!");
+        textoVitoria.textContent = ('EMPATE')
+        textoVitoria.classList.remove('opacity-0');
+        textoVitoria.classList.add('opacity-100');
       } else {
-        alert("Vencedor: Darth Vader")
+        textoVitoria.textContent = ('DOOMERVAL WINS')
+        textoVitoria.classList.remove('opacity-0');
+        textoVitoria.classList.add('opacity-100');
       }
       const jogarNovamente = document.querySelector('.jogarNovamente');
       jogarNovamente.classList.add('opacity-100');
+      
       jogarNovamente.addEventListener('click', () => {
         
         //Reseta o jogo e faz os robos pararem de se mover
@@ -240,14 +251,16 @@
         quadrado4.dano = 100;
 
         //Resetar o background azul
-        infoRobo1.classList.remove('bg-danger');
-        infoRobo1.classList.add('bg-light');
+        infoRobo1.classList.remove('text-red');
+        infoRobo1.classList.add('text-light');
 
-        infoRobo2.classList.remove('bg-danger');
-        infoRobo2.classList.add('bg-light');
+        infoRobo2.classList.remove('text-red');
+        infoRobo2.classList.add('text-light');
 
         //Fazer o botão sumir
         jogarNovamente.classList.remove('opacity-100');
+        textoVitoria.classList.remove('opacity-100');
+        textoVitoria.classList.add('opacity-0');
 
       })
     }
@@ -262,23 +275,13 @@
       moverQuadrados();
 
       if (quadrado1.dano <= 50) {
-        infoRobo1.classList.remove('bg-light');
-        infoRobo1.classList.add('bg-danger');
+        infoRobo1.classList.remove('text-light');
+        infoRobo1.classList.add('text-red');
       }
 
       if (quadrado4.dano <= 50) {
-        infoRobo2.classList.remove('bg-light');
-        infoRobo2.classList.add('bg-danger');
-      }
-
-      if (quadrado1.dano === 0) {
-        infoRobo1.classList.remove('bg-danger');
-        infoRobo1.classList.add('bg-dark');
-      }
-
-      if (quadrado4.dano === 0) {
-        infoRobo2.classList.remove('bg-danger');
-        infoRobo2.classList.add('bg-dark');
+        infoRobo2.classList.remove('text-light');
+        infoRobo2.classList.add('text-red');
       }
       exibirQuadrados();
     }
