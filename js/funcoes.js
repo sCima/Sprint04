@@ -14,18 +14,48 @@
   let moveDown2 = false;
 
   let colisoes = 0;
-  let vencedor1 = false;
-  let vencedor2 = false;
-  
+
+  // hp dos robos
+  const robo1 = document.querySelector('.hpRobo1');
+  const robo2 = document.querySelector('.hpRobo2');
+
+  // barra de informaçoes dos robos
+  const infoRobo1 = document.querySelector('#infoRobo1');
+  const infoRobo2 = document.querySelector('#infoRobo2');
+
   // arrays
   const quadrados = []; //armazena os quadrados
 
+  // quadrados
+  const quadrado2 = new quadrado(490, 0, 10, 500, "#000", 0); // posX, posY, width, height, color, velocidade
+  quadrados.push(quadrado2); // adiciona o quadrado2 ao array quadrados
+
+  const quadrado3 = new quadrado(470, 220, 50, 50, "#000", 0); // posX, posY, width, height, color, velocidade
+  quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados
+
   //robo 1
-  const quadrado1 = new quadrado(900, 200, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
+  const quadrado1 = new quadrado(50, 210, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado1); // adiciona o quadrado1 ao array quadrados
+  
+  /*let quadradoImg1 = {
+    src: "../images/pngfind.com-darth-vader-helmet-png-1283805.png",
+    alt: "Imagem do Darth Vader",
+    width: "70",
+    height: "70"
+};
+
+
+  let elementoImg = document.createElement("img");
+  elementoImg.src = quadradoImg1.src;
+  elementoImg.width = quadradoImg1.width;
+  elementoImg.height = quadradoImg1.height;
+  
+  
+  let container = document.querySelector('.container')
+  container.appendChild(elementoImg);*/
 
   //robo 2
-  const quadrado4 = new quadrado(50, 200, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
+  const quadrado4 = new quadrado(900, 210, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado4); // adiciona o quadrado4 ao array quadrados
 
   // pressionar as teclas robo1
@@ -107,29 +137,29 @@
   }
 
   function moverQuadrados() {
-    if (moveLeft && !moveRight) {
+    if (moveLeft2 && !moveRight2) {
       quadrado1.posX -= quadrado1.velocidade;
     }
-    if (moveRight && !moveLeft) {
+    if (moveRight2 && !moveLeft2) {
       quadrado1.posX += quadrado1.velocidade;
     }
-    if (moveUp && !moveDown) {
+    if (moveUp2 && !moveDown2) {
       quadrado1.posY -= quadrado1.velocidade;
     }
-    if (moveDown && !moveUp) {
+    if (moveDown2 && !moveUp2) {
       quadrado1.posY += quadrado1.velocidade;
     }
 
-    if (moveLeft2 && !moveRight2) {
+    if (moveLeft && !moveRight) {
       quadrado4.posX -= quadrado4.velocidade;
     }
-    if (moveRight2 && !moveLeft2) {
+    if (moveRight && !moveLeft) {
       quadrado4.posX += quadrado4.velocidade;
     }
-    if (moveUp2 && !moveDown2) {
+    if (moveUp && !moveDown) {
       quadrado4.posY -= quadrado4.velocidade;
     }
-    if (moveDown2 && !moveUp2) {
+    if (moveDown && !moveUp) {
       quadrado4.posY += quadrado4.velocidade;
     }
 
@@ -147,28 +177,30 @@
       quadrado4.posX += (quadrado1.posX - quadrado4.posX) * -1;
       quadrado4.posY += (quadrado1.posY - quadrado4.posY) * -1;
 
-      const robo1 = document.querySelector('.hpRobo1');
+      
+      // Se houver mais de "0" de vida, calcula o dano
       if (robo1.textContent >= "0") {
         quadrado1.dano -= Math.round(Math.random() * 20);
         robo1.textContent = quadrado1.dano;
-      }
+      } // Se não, mantem a vida como 0 para nao negativar
       if (robo1.textContent <= "0") {
         quadrado1.dano = 0;
         robo1.textContent = 0;
 
       }
 
-      const robo2 = document.querySelector('.hpRobo2');
+      // Se houver mais de "0" de vida, calcula o dano
       if (robo2.textContent >= "0") {
         quadrado4.dano -= Math.round(Math.random() * 20);
         robo2.textContent = quadrado4.dano;
-      }
+      } // Se não, mantem a vida como 0 para nao negativar
       if (robo2.textContent <= "0") {
         quadrado4.dano = 0;
         robo2.textContent = 0;
 
       }
 
+      //Adiciona 1 ao contador de colisoes
       colisoes++;
 
     }
@@ -178,7 +210,7 @@
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     for (const i in quadrados) {
       const spr = quadrados[i];
-      ctx.fillStyle = spr.color
+      ctx.fillStyle = spr.color;
       ctx.fillRect(spr.posX, spr.posY, spr.width, spr.height);
     }
   }
@@ -188,15 +220,16 @@
       colisoes++;
       if (quadrado1.dano > quadrado4.dano) {
         alert("Vencedor: Demirval");
-      }
-      else {
-        alert("Vencedor: Darth Vader");
+      } else if (quadrado1.dano === quadrado4.dano) {
+        alert("Empate!");
+      } else {
+        alert("Vencedor: Darth Vader")
       }
       const jogarNovamente = document.querySelector('.jogarNovamente');
       jogarNovamente.classList.add('opacity-100');
       jogarNovamente.addEventListener('click', () => {
-        quadrado1.dano = 100;
-        quadrado4.dano = 100;
+        
+        //Reseta o jogo e faz os robos pararem de se mover
         colisoes = 0;
         moveDown = false;
         moveUp = false;
@@ -206,17 +239,31 @@
         moveUp2 = false;
         moveLeft2 = false;
         moveRight2 = false;
-        
-        quadrado1.posX = 900;
+
+        //Reseta a posição dos robos
+        quadrado1.posX = 50;
         quadrado1.posY = 200;
-        quadrado4.posX = 50;
+        quadrado4.posX = 900;
         quadrado4.posY = 200;
 
+        //Reseta a vida dos robos
+        robo1.textContent = 100;
+        robo2.textContent = 100;
+        quadrado1.dano = 100;
+        quadrado4.dano = 100;
+
+        //Resetar o background azul
+        infoRobo1.classList.remove('bg-danger');
+        infoRobo1.classList.add('bg-primary');
+
+        infoRobo2.classList.remove('bg-danger');
+        infoRobo2.classList.add('bg-primary');
+
+        //Fazer o botão sumir
+        jogarNovamente.classList.remove('opacity-100');
+
       })
-  
-
     }
-
   }
 
   //solicitar uma animação ao browser e chamar a função
@@ -226,8 +273,7 @@
     window.requestAnimationFrame(atualizarTela, cnv);
     if (colisoes <= 5) {
       moverQuadrados();
-      const infoRobo1 = document.querySelector('#infoRobo1');
-      const infoRobo2 = document.querySelector('#infoRobo2');
+
       if (quadrado1.dano <= 50) {
         infoRobo1.classList.remove('bg-primary');
         infoRobo1.classList.add('bg-danger');
@@ -249,7 +295,7 @@
       }
       exibirQuadrados();
     }
-   
+
   }
   atualizarTela();
 
