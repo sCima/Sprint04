@@ -1,14 +1,19 @@
-// MONTA OS QUADRADOS(ROBÔS E OBSTÁCULOS)
-const quadrado = function (posX, posY, width, height, type, color, velocidade, dano) {
-    this.posX = posX;
-    this.posY = posY;
-    this.width = width;
-    this.height = height;
-    this.type = type;
-    if (type === "image"){
-        this.image = new Image()
-        this.image.src = color;
+function criarQuadrado(posX, posY, width, height, type, color, velocidade, dano) {
+    const novoQuadrado = {
+        posX: posX,
+        posY: posY,
+        width: width,
+        height: height,
+        type: type,
+        color: color, // Cor para quadrados não baseados em imagem
+        velocidade: velocidade,
+        dano: dano
+    };
+
+    if (type === "image") {
+        novoQuadrado.image = new Image();
+        novoQuadrado.image.src = color;
     }
-    this.velocidade = velocidade;
-    this.dano = dano;
+
+    return novoQuadrado;
 }
