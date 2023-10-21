@@ -1,10 +1,6 @@
 (function () {
   const cnv = document.querySelector('#canvas');
   const ctx = cnv.getContext('2d');
-  
-
-
-  
 
   //movimentos
   let moveLeft = false;
@@ -41,11 +37,11 @@
   quadrados.push(quadrado3); // adiciona o quadrado3 ao array quadrados*/
 
   //robo 1
-  const quadrado1 = new quadrado(900, 210, 50, 70, "grey", 5, 100); // posX, posY, width, height, color, velocidade
+  const quadrado1 = new quadrado(900, 210, 50, 70, "image", "../images/demirval-pixel.png", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado1); // adiciona o quadrado1 ao array quadrados
 
   //robo 2
-  const quadrado4 = new quadrado(50, 210, 50, 70, "#dc143c", 5, 100); // posX, posY, width, height, color, velocidade
+  const quadrado4 = new quadrado(50, 210, 50, 70, "image", "../images/doomirval-pixel.png", 5, 100); // posX, posY, width, height, color, velocidade
   quadrados.push(quadrado4); // adiciona o quadrado4 ao array quadrados
 
   // pressionar as teclas robo1
@@ -210,17 +206,13 @@
       colisoes++;
       if (quadrado1.dano > quadrado4.dano) {
         textoVitoria.textContent = ('DEMIRVAL WINS')
-        textoVitoria.classList.remove('opacity-0');
-        textoVitoria.classList.add('opacity-100');
-
+        
       } else if (quadrado1.dano === quadrado4.dano) {
         textoVitoria.textContent = ('EMPATE')
-        textoVitoria.classList.remove('opacity-0');
-        textoVitoria.classList.add('opacity-100');
+        
       } else {
-        textoVitoria.textContent = ('DOOMERVAL WINS')
-        textoVitoria.classList.remove('opacity-0');
-        textoVitoria.classList.add('opacity-100');
+        textoVitoria.textContent = ('DOOMIRVAL WINS')
+       
       }
       const jogarNovamente = document.querySelector('.jogarNovamente');
       jogarNovamente.classList.add('opacity-100');
@@ -259,8 +251,7 @@
 
         //Fazer o botão sumir
         jogarNovamente.classList.remove('opacity-100');
-        textoVitoria.classList.remove('opacity-100');
-        textoVitoria.classList.add('opacity-0');
+        textoVitoria.textContent = ('X')
 
       })
     }
@@ -274,15 +265,15 @@
     if (colisoes <= 5) {
       moverQuadrados();
 
-      if (quadrado1.dano <= 50) {
-        infoRobo1.classList.remove('text-light');
-        infoRobo1.classList.add('text-red');
-      }
+      // if (quadrado1.dano <= 50) {
+      //   infoRobo1.classList.remove('text-light');
+      //   infoRobo1.classList.add('text-red');
+      // }
 
-      if (quadrado4.dano <= 50) {
-        infoRobo2.classList.remove('text-light');
-        infoRobo2.classList.add('text-red');
-      }
+      // if (quadrado4.dano <= 50) {
+      //   infoRobo2.classList.remove('text-light');
+      //   infoRobo2.classList.add('text-red');
+      // }
       exibirQuadrados();
     }
 
