@@ -31,17 +31,14 @@
     const textoVitoria = document.querySelector('#vitoria');
 
     // arrays
-    const quadrados = []; // Armazena os quadrados
+    const quadrados = [];
 
-    // Adicione os caminhos corretos para as imagens
     const image1 = "../images/doomirval-pixel.png";
     const image2 = "../images/demirval-pixel.png";
 
-    // Crie os quadrados
-    const quadrado1 = criarQuadrado(900, 210, 100, 100, "image", image1, 5, 100);
-    const quadrado4 = criarQuadrado(50, 210, 100, 100, "image", image2, 5, 100);
+    const quadrado1 = criarQuadrado(850, 210, 100, 100, "image", image1, 5, 100); // doomirval
+    const quadrado4 = criarQuadrado(50, 210, 100, 100, "image", image2, 5, 100); // demirval
 
-    // Adicione os quadrados ao array
     quadrados.push(quadrado1);
     quadrados.push(quadrado4);
 
@@ -64,7 +61,6 @@
 
     carregarImagens();
 
-  // Carregamento de áudio (supondo que você já tenha os arquivos de áudio no local certo)
   async function loadSound(url) {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
@@ -75,7 +71,6 @@
     hitSoundBuffer = buffer;
   });
 
-  // Função para reproduzir o som
   function playHitSound() {
     const source = audioContext.createBufferSource();
     source.buffer = hitSoundBuffer;
@@ -83,7 +78,6 @@
     source.start(0);
   }
 
-  // Função para detectar colisões
   function colisao(a, b) {
     return (
       a.posX < b.posX + b.width &&
@@ -93,7 +87,6 @@
     );
   }
 
-  // Função para verificar o vencedor
   function verificaVencendor() {
     if (colisoes === 5) {
       colisoes++;
@@ -112,7 +105,6 @@
 
       jogarNovamente.addEventListener('click', () => {
 
-        //Reseta o jogo e faz os robos pararem de se mover
         colisoes = 0;
         moveDown = false;
         moveUp = false;
@@ -123,26 +115,22 @@
         moveLeft2 = false;
         moveRight2 = false;
 
-        //Reseta a posição dos robos
         quadrado1.posX = 900;
         quadrado1.posY = 200;
         quadrado4.posX = 50;
         quadrado4.posY = 200;
 
-        //Reseta a vida dos robos
         robo1.textContent = 100;
         robo2.textContent = 100;
         quadrado1.dano = 100;
         quadrado4.dano = 100;
 
-        //Resetar o background azul
         infoRobo1.classList.remove('text-red');
         infoRobo1.classList.add('text-light');
 
         infoRobo2.classList.remove('text-red');
         infoRobo2.classList.add('text-light');
 
-        //Fazer o botão sumir
         jogarNovamente.classList.remove('opacity-100');
         textoVitoria.textContent = ('X')
 
@@ -150,7 +138,6 @@
     }
   }
 
-   // Pressionar as teclas do robô 1
    window.addEventListener('keydown', function (e) {
      const nomeKey = e.key;
      switch (nomeKey) {
@@ -169,7 +156,6 @@
      }
    });
 
-   // Soltar as teclas do robô 1
    window.addEventListener('keyup', (e) => {
      const key = e.key;
      switch (key) {
@@ -188,7 +174,6 @@
      }
    });
 
-   // Pressionar as teclas do robô 2
    window.addEventListener('keydown', function (e) {
      const nomeKey = e.key;
      switch (nomeKey) {
@@ -211,7 +196,6 @@
      }
    });
 
-   // Soltar as teclas do robô 2
    window.addEventListener('keyup', (e) => {
      const key = e.key;
      switch (key) {
@@ -233,8 +217,8 @@
          break;
      }
    });
-  // Função para mover os quadrados
-  function moverQuadrados() {
+
+   function moverQuadrados() {
     if (moveLeft2) {
       quadrado4.posX -= quadrado4.velocidade;
     }
@@ -261,7 +245,6 @@
       quadrado1.posY += quadrado1.velocidade;
     }
 
-    // Fixar na tela - NÃO SAI DO CANVAS
     quadrado1.posX = Math.max(0, Math.min(cnv.width - quadrado1.width, quadrado1.posX));
     quadrado1.posY = Math.max(0, Math.min(cnv.height - quadrado1.height, quadrado1.posY));
 
@@ -277,34 +260,28 @@
 
       playHitSound();
 
-      // Se houver mais de "0" de vida, calcula o dano
       if (robo1.textContent >= "0") {
         quadrado1.dano -= Math.round(Math.random() * 20);
         robo1.textContent = quadrado1.dano;
       }
-      // Se não, mantém a vida como 0 para não negativar
       if (robo1.textContent <= "0") {
         quadrado1.dano = 0;
         robo1.textContent = 0;
       }
 
-      // Se houver mais de "0" de vida, calcula o dano
       if (robo2.textContent >= "0") {
         quadrado4.dano -= Math.round(Math.random() * 20);
         robo2.textContent = quadrado4.dano;
       }
-      // Se não, mantém a vida como 0 para não negativar
       if (robo2.textContent <= "0") {
         quadrado4.dano = 0;
         robo2.textContent = 0;
       }
 
-      // Adiciona 1 ao contador de colisões
       colisoes++;
     }
   }
 
-  // Função para exibir os quadrados
   function exibirQuadrados() {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     for (const i in quadrados) {
@@ -318,7 +295,6 @@
     }
   }
 
-  // Solicitar uma animação ao navegador e chamar a função atualizarTela
   function atualizarTela() {
     verificaVencendor();
     window.requestAnimationFrame(atualizarTela, cnv);
